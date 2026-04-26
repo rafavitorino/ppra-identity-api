@@ -1,0 +1,11 @@
+br\com\identityapi\service\ImagePreProcessingService.class
+br\com\identityapi\repository\VerificationRepository.class
+br\com\identityapi\domain\Verification.class
+br\com\identityapi\dto\VerificationRequest.class
+br\com\identityapi\domain\VerificationStatus.class
+br\com\identityapi\dto\DocumentoRgResponse.class
+br\com\identityapi\IdentityApiApplication.class
+br\com\identityapi\service\DocumentoProcessamentoService.class
+br\com\identityapi\controller\VerificationController.class
+br\com\identityapi\service\OcrService.class
+br\com\identityapi\service\RgParserService.class
