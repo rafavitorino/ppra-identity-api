@@ -1,0 +1,134 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: ppra-identity-verify
+meta:
+  id: wrk_0ccaa788fed34fa5a716f3a203cba02b
+  created: 1775939229129
+  modified: 1775939229129
+  description: ""
+collection:
+  - url: http://localhost:8080/api/verificacoes
+    name: /verificacoes
+    meta:
+      id: req_4a124625f14644728a65a09833003d77
+      created: 1775939248907
+      modified: 1775942049486
+      isPrivate: false
+      description: ""
+      sortKey: -1775939248907
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "idUsuario": "user-001",
+          "emailResponsavel": "rafael.jesus@gmail.com"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/api/verificacoes/110031af-74d5-41b6-98de-08a119198428/documento-responsavel
+    name: /documento-responsavel
+    meta:
+      id: req_44cfdbf2cfad42e8934d7fe097785edf
+      created: 1775939842666
+      modified: 1777841126458
+      isPrivate: false
+      description: ""
+      sortKey: -1775939248807
+    method: POST
+    body:
+      mimeType: multipart/form-data
+      params:
+        - name: frente
+          value: ""
+          description: ""
+          disabled: false
+          fileName: C:\Users\Rafael\Downloads\rg_frente_horizontal.jpeg
+          type: file
+        - name: verso
+          value: ""
+          description: ""
+          disabled: false
+          fileName: C:\Users\Rafael\Downloads\rg_verso_crop.jpeg
+          type: file
+    headers:
+      - name: Content-Type
+        value: multipart/form-data
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/api/verificacoes/110031af-74d5-41b6-98de-08a119198428/documento-menor
+    name: /documento-menor
+    meta:
+      id: req_cc81841420044c62b409bb3e49f66c0c
+      created: 1777854356724
+      modified: 1777854378808
+      isPrivate: false
+      description: ""
+      sortKey: -1775939248757
+    method: POST
+    body:
+      mimeType: multipart/form-data
+      params:
+        - name: frente
+          value: ""
+          description: ""
+          disabled: false
+          fileName: C:\Users\Rafael\Downloads\rg_dan_frente.jpeg
+          type: file
+        - name: verso
+          value: ""
+          description: ""
+          disabled: false
+          fileName: C:\Users\Rafael\Downloads\rg_dan_verso.jpeg
+          type: file
+    headers:
+      - name: Content-Type
+        value: multipart/form-data
+      - name: User-Agent
+        value: insomnia/12.5.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_2ecaf50e5d23f10f6d4939c0a4935213b734f082
+    created: 1775939229132
+    modified: 1775939229132
+environments:
+  name: Base Environment
+  meta:
+    id: env_2ecaf50e5d23f10f6d4939c0a4935213b734f082
+    created: 1775939229131
+    modified: 1775939229131
+    isPrivate: false
