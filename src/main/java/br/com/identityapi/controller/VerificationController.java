@@ -7,6 +7,7 @@ import br.com.identityapi.dto.DocumentoRgResponse;
 import br.com.identityapi.dto.VerificationRequest;
 import br.com.identityapi.repository.VerificationRepository;
 import br.com.identityapi.service.DocumentoProcessamentoService;
+import br.com.identityapi.exception.DocumentoIncompletoException;
 import br.com.identityapi.exception.IdadeInvalidaException;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -63,6 +66,10 @@ public class VerificationController {
 
         DocumentoRgResponse resultado = documentoProcessamentoService.processar(frente, verso);
 
+        validarDocumentoCompleto(resultado.nome(), resultado.cpf(), resultado.dataNascimento(),
+                resultado.naturalidade(), resultado.nomePai(), resultado.nomeMae(),
+                resultado.orgaoExpedidor(), resultado.registroGeral(), resultado.dataExpedicao());
+
         verification.setStatus(VerificationStatus.AUTORIZADO_RESPONSAVEL);
         verificationRepository.save(verification);
 
@@ -82,6 +89,10 @@ public class VerificationController {
         System.out.println("Menor — verso: " + verso.getOriginalFilename());
 
         DocumentoMenorResponse resultado = documentoProcessamentoService.processarMenor(frente, verso);
+
+        validarDocumentoCompleto(resultado.nome(), resultado.cpf(), resultado.dataNascimento(),
+                resultado.naturalidade(), resultado.nomePai(), resultado.nomeMae(),
+                resultado.orgaoExpedidor(), resultado.registroGeral(), resultado.dataExpedicao());
 
         Integer idade = resultado.idade();
         if (idade == null) {
@@ -104,5 +115,30 @@ public class VerificationController {
         verificationRepository.save(verification);
 
         return ResponseEntity.ok(resultado);
+    }
+
+    /**
+     * Valida que todos os campos obrigatórios foram extraídos pelo OCR.
+     * Lança DocumentoIncompletoException listando os campos ausentes.
+     */
+    private void validarDocumentoCompleto(String nome, String cpf, String dataNascimento,
+            String naturalidade, String nomePai, String nomeMae,
+            String orgaoExpedidor, String registroGeral, String dataExpedicao) {
+
+        List<String> faltantes = new ArrayList<>();
+
+        if (nome == null)           faltantes.add("nome");
+        if (cpf == null)            faltantes.add("cpf");
+        if (dataNascimento == null) faltantes.add("dataNascimento");
+        if (naturalidade == null)   faltantes.add("naturalidade");
+        if (nomePai == null)        faltantes.add("nomePai");
+        if (nomeMae == null)        faltantes.add("nomeMae");
+        if (orgaoExpedidor == null) faltantes.add("orgaoExpedidor");
+        if (registroGeral == null)  faltantes.add("registroGeral");
+        if (dataExpedicao == null)  faltantes.add("dataExpedicao");
+
+        if (!faltantes.isEmpty()) {
+            throw new DocumentoIncompletoException(faltantes);
+        }
     }
 }

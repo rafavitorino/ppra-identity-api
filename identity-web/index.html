@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verificação de Identidade</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50:  '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="min-h-screen bg-gray-50 flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200 shadow-sm">
+    <div class="max-w-2xl mx-auto px-4 py-4 flex items-center gap-3">
+      <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center">
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg>
+      </div>
+      <span class="font-semibold text-gray-800 text-lg">Identity Verify</span>
+    </div>
+  </header>
+
+  <!-- Progress Bar (oculto na boas-vindas) -->
+  <div id="progress-section" class="bg-white border-b border-gray-100 hidden">
+    <div class="max-w-2xl mx-auto px-4 py-4">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">Progresso</span>
+        <span id="step-label" class="text-xs font-medium text-brand-600">Etapa 1 de 3</span>
+      </div>
+      <div class="w-full bg-gray-200 rounded-full h-2">
+        <div id="progress-bar" class="bg-brand-600 h-2 rounded-full transition-all duration-500" style="width: 33%"></div>
+      </div>
+      <div class="flex justify-between mt-2">
+        <span class="text-xs text-gray-400">Doc. Responsável</span>
+        <span class="text-xs text-gray-400">Doc. Menor</span>
+        <span class="text-xs text-gray-400">Confirmação</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-2xl mx-auto w-full px-4 py-8">
+
+    <!-- STEP 0: Boas-vindas -->
+    <section id="step-0" class="step-section">
+      <!-- Hero -->
+      <div class="text-center mb-8">
+        <div class="w-20 h-20 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-5">
+          <svg class="w-10 h-10 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+              d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2" />
+          </svg>
+        </div>
+        <h1 class="text-2xl font-bold text-gray-900 mb-2">Verificação de Identidade</h1>
+        <p class="text-gray-500 max-w-md mx-auto">
+          Olá! Você foi convidado a autorizar a verificação de identidade de um menor de idade.
+          O processo é simples, seguro e leva menos de 2 minutos.
+        </p>
+      </div>
+
+      <!-- Etapas do processo -->
+      <div class="bg-white border border-gray-200 rounded-2xl p-5 mb-6">
+        <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4">Como funciona</p>
+        <div class="space-y-4">
+          <div class="flex gap-4 items-start">
+            <div class="w-8 h-8 rounded-full bg-brand-600 text-white text-sm font-bold flex items-center justify-center flex-shrink-0">1</div>
+            <div>
+              <p class="font-medium text-gray-800 text-sm">Documento do responsável</p>
+              <p class="text-gray-500 text-xs mt-0.5">Fotografe ou envie a frente e o verso do seu RG para confirmar sua identidade como responsável legal.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="w-8 h-8 rounded-full bg-brand-600 text-white text-sm font-bold flex items-center justify-center flex-shrink-0">2</div>
+            <div>
+              <p class="font-medium text-gray-800 text-sm">Documento do menor</p>
+              <p class="text-gray-500 text-xs mt-0.5">Fotografe ou envie a frente e o verso do RG do menor de idade para validação.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="w-8 h-8 rounded-full bg-brand-600 text-white text-sm font-bold flex items-center justify-center flex-shrink-0">3</div>
+            <div>
+              <p class="font-medium text-gray-800 text-sm">Análise e confirmação</p>
+              <p class="text-gray-500 text-xs mt-0.5">Os dados são extraídos automaticamente e a verificação entra em análise.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dicas de qualidade -->
+      <div class="bg-amber-50 border border-amber-100 rounded-xl p-4 mb-8 flex gap-3">
+        <svg class="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+        </svg>
+        <div>
+          <p class="text-sm font-medium text-amber-700 mb-1">Para garantir a leitura correta</p>
+          <ul class="text-xs text-amber-600 space-y-1 list-disc list-inside">
+            <li>Fotografe em ambiente bem iluminado, sem reflexos</li>
+            <li>Mantenha o documento plano e centralizado</li>
+            <li>Todos os dados devem estar nítidos e legíveis</li>
+            <li>Não cubra nenhuma parte do documento</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Escolha do modo -->
+      <div class="mb-6">
+        <p class="text-sm font-medium text-gray-700 text-center mb-4">Como você prefere enviar as fotos dos documentos?</p>
+        <div class="grid grid-cols-2 gap-3">
+          <!-- Câmera -->
+          <button id="btn-modo-camera"
+            onclick="selecionarModo('camera')"
+            class="modo-btn flex flex-col items-center gap-3 p-5 border-2 border-gray-200 rounded-xl hover:border-brand-500 hover:bg-brand-50 transition-all text-center">
+            <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
+              <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <div>
+              <p class="font-semibold text-gray-800 text-sm">Tirar foto</p>
+              <p class="text-xs text-gray-500 mt-0.5">Usar a câmera do dispositivo</p>
+            </div>
+          </button>
+
+          <!-- Arquivo -->
+          <button id="btn-modo-arquivo"
+            onclick="selecionarModo('arquivo')"
+            class="modo-btn flex flex-col items-center gap-3 p-5 border-2 border-gray-200 rounded-xl hover:border-brand-500 hover:bg-brand-50 transition-all text-center">
+            <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
+              <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+              </svg>
+            </div>
+            <div>
+              <p class="font-semibold text-gray-800 text-sm">Enviar arquivo</p>
+              <p class="text-xs text-gray-500 mt-0.5">Selecionar imagem salva</p>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <button id="btn-comecar" onclick="comecar()" disabled
+        class="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-3 px-6 rounded-xl transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
+        Começar verificação
+      </button>
+
+      <p class="text-center text-xs text-gray-400 mt-4">
+        Seus dados são protegidos e usados exclusivamente para fins de verificação.
+      </p>
+    </section>
+
+    <!-- STEP 1: Documento do Responsável -->
+    <section id="step-1" class="step-section hidden">
+      <div class="mb-6">
+        <h1 class="text-2xl font-bold text-gray-900">Documento do Responsável</h1>
+        <p class="text-gray-500 mt-1">
+          Envie a frente e o verso do seu RG para autorizar a verificação do menor.
+        </p>
+      </div>
+
+      <div class="bg-brand-50 border border-brand-100 rounded-xl p-4 mb-6 flex gap-3">
+        <svg class="w-5 h-5 text-brand-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <p class="text-sm text-brand-700">
+          Certifique-se de que as imagens estejam nítidas, bem iluminadas e sem reflexos. Todos os dados devem estar legíveis.
+        </p>
+      </div>
+
+      <form id="form-responsavel" class="space-y-5">
+        <!-- Frente -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Frente do RG</label>
+          <div id="area-responsavel-frente"></div>
+        </div>
+        <!-- Verso -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Verso do RG</label>
+          <div id="area-responsavel-verso"></div>
+        </div>
+
+        <div id="error-step1" class="hidden bg-red-50 border border-red-200 rounded-xl p-4 flex gap-3">
+          <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <p id="error-step1-msg" class="text-sm text-red-700"></p>
+        </div>
+
+        <button type="submit" id="btn-step1"
+          class="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-3 px-6 rounded-xl transition-colors flex items-center justify-center gap-2">
+          <span id="btn-step1-text">Enviar e continuar</span>
+          <svg id="btn-step1-spinner" class="hidden animate-spin w-5 h-5 text-white" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+          </svg>
+        </button>
+      </form>
+    </section>
+
+    <!-- STEP 2: Documento do Menor -->
+    <section id="step-2" class="step-section hidden">
+      <div class="mb-6">
+        <div class="inline-flex items-center gap-2 bg-green-50 text-green-700 text-sm font-medium px-3 py-1.5 rounded-full mb-4">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          Responsável autorizado
+        </div>
+        <h1 class="text-2xl font-bold text-gray-900">Documento do Menor</h1>
+        <p class="text-gray-500 mt-1">Agora envie a frente e o verso do RG do menor de idade.</p>
+      </div>
+
+      <div id="dados-responsavel" class="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-6">
+        <p class="text-xs font-medium text-gray-500 uppercase tracking-wide mb-3">Dados extraídos do responsável</p>
+        <div class="grid grid-cols-2 gap-3 text-sm">
+          <div>
+            <span class="text-gray-400 text-xs">Nome</span>
+            <p id="resp-nome" class="font-medium text-gray-800 truncate">—</p>
+          </div>
+          <div>
+            <span class="text-gray-400 text-xs">CPF</span>
+            <p id="resp-cpf" class="font-medium text-gray-800">—</p>
+          </div>
+          <div>
+            <span class="text-gray-400 text-xs">Data de nascimento</span>
+            <p id="resp-nascimento" class="font-medium text-gray-800">—</p>
+          </div>
+          <div>
+            <span class="text-gray-400 text-xs">Idade</span>
+            <p id="resp-idade" class="font-medium text-gray-800">—</p>
+          </div>
+        </div>
+      </div>
+
+      <form id="form-menor" class="space-y-5">
+        <!-- Frente -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Frente do RG do menor</label>
+          <div id="area-menor-frente"></div>
+        </div>
+        <!-- Verso -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Verso do RG do menor</label>
+          <div id="area-menor-verso"></div>
+        </div>
+
+        <div id="error-step2" class="hidden bg-red-50 border border-red-200 rounded-xl p-4 flex gap-3">
+          <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <p id="error-step2-msg" class="text-sm text-red-700"></p>
+        </div>
+
+        <button type="submit" id="btn-step2"
+          class="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-3 px-6 rounded-xl transition-colors flex items-center justify-center gap-2">
+          <span id="btn-step2-text">Enviar e finalizar</span>
+          <svg id="btn-step2-spinner" class="hidden animate-spin w-5 h-5 text-white" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+          </svg>
+        </button>
+      </form>
+    </section>
+
+    <!-- STEP 3: Confirmação -->
+    <section id="step-3" class="step-section hidden">
+      <div class="text-center py-8">
+        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <h1 class="text-2xl font-bold text-gray-900 mb-2">Verificação enviada!</h1>
+        <p class="text-gray-500 mb-8 max-w-sm mx-auto">
+          Os documentos foram recebidos e estão em análise. Você receberá uma notificação assim que o processo for concluído.
+        </p>
+
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 text-left mb-6">
+          <p class="text-xs font-medium text-gray-500 uppercase tracking-wide mb-4">Dados extraídos do menor</p>
+          <div class="grid grid-cols-2 gap-4 text-sm">
+            <div>
+              <span class="text-gray-400 text-xs">Nome</span>
+              <p id="menor-nome" class="font-medium text-gray-800 mt-0.5">—</p>
+            </div>
+            <div>
+              <span class="text-gray-400 text-xs">CPF</span>
+              <p id="menor-cpf" class="font-medium text-gray-800 mt-0.5">—</p>
+            </div>
+            <div>
+              <span class="text-gray-400 text-xs">Data de nascimento</span>
+              <p id="menor-nascimento" class="font-medium text-gray-800 mt-0.5">—</p>
+            </div>
+            <div>
+              <span class="text-gray-400 text-xs">Idade</span>
+              <p id="menor-idade" class="font-medium text-gray-800 mt-0.5">—</p>
+            </div>
+            <div>
+              <span class="text-gray-400 text-xs">RG</span>
+              <p id="menor-rg" class="font-medium text-gray-800 mt-0.5">—</p>
+            </div>
+            <div>
+              <span class="text-gray-400 text-xs">Órgão expedidor</span>
+              <p id="menor-orgao" class="font-medium text-gray-800 mt-0.5">—</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="inline-flex items-center gap-2 bg-yellow-50 text-yellow-700 border border-yellow-200 text-sm font-medium px-4 py-2 rounded-full">
+          <span class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
+          Em análise
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal câmera -->
+  <div id="camera-modal" class="hidden fixed inset-0 bg-black bg-opacity-80 z-50 flex flex-col items-center justify-center p-4">
+    <div class="bg-white rounded-2xl overflow-hidden w-full max-w-lg">
+      <!-- Header do modal -->
+      <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+        <div>
+          <p class="font-semibold text-gray-800" id="camera-modal-title">Fotografar documento</p>
+          <p class="text-xs text-gray-500 mt-0.5" id="camera-modal-subtitle">Centralize o documento no quadro</p>
+        </div>
+        <button onclick="fecharCamera()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors">
+          <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Viewfinder -->
+      <div class="relative bg-black">
+        <video id="camera-video" autoplay playsinline muted
+          class="w-full max-h-72 object-cover"></video>
+        <!-- Guia de enquadramento -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div class="border-2 border-white border-opacity-60 rounded-lg w-4/5 h-3/4 relative">
+            <!-- Cantos -->
+            <div class="absolute top-0 left-0 w-5 h-5 border-t-4 border-l-4 border-white rounded-tl-sm"></div>
+            <div class="absolute top-0 right-0 w-5 h-5 border-t-4 border-r-4 border-white rounded-tr-sm"></div>
+            <div class="absolute bottom-0 left-0 w-5 h-5 border-b-4 border-l-4 border-white rounded-bl-sm"></div>
+            <div class="absolute bottom-0 right-0 w-5 h-5 border-b-4 border-r-4 border-white rounded-br-sm"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preview da foto tirada -->
+      <div id="camera-preview-container" class="hidden bg-black">
+        <img id="camera-preview-img" class="w-full max-h-72 object-contain mx-auto" alt="Preview" />
+      </div>
+
+      <!-- Canvas oculto para captura -->
+      <canvas id="camera-canvas" class="hidden"></canvas>
+
+      <!-- Controles -->
+      <div class="px-5 py-4 flex gap-3">
+        <!-- Estado: visualizando câmera -->
+        <div id="camera-controls-live" class="flex gap-3 w-full">
+          <button onclick="alternarCamera()"
+            class="flex-shrink-0 w-11 h-11 border border-gray-200 rounded-xl flex items-center justify-center hover:bg-gray-50 transition-colors"
+            title="Alternar câmera">
+            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+          </button>
+          <button onclick="tirarFoto()"
+            class="flex-1 bg-brand-600 hover:bg-brand-700 text-white font-semibold py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            Fotografar
+          </button>
+        </div>
+
+        <!-- Estado: foto tirada, aguardando confirmação -->
+        <div id="camera-controls-preview" class="hidden flex gap-3 w-full">
+          <button onclick="repetirFoto()"
+            class="flex-1 border border-gray-200 text-gray-700 font-semibold py-2.5 rounded-xl hover:bg-gray-50 transition-colors">
+            Repetir
+          </button>
+          <button onclick="confirmarFoto()"
+            class="flex-1 bg-brand-600 hover:bg-brand-700 text-white font-semibold py-2.5 rounded-xl transition-colors">
+            Usar esta foto
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-200 bg-white mt-auto">
+    <div class="max-w-2xl mx-auto px-4 py-4 text-center text-xs text-gray-400">
+      Seus dados são protegidos e utilizados exclusivamente para fins de verificação de identidade.
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

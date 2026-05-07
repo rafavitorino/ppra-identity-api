@@ -1,0 +1,31 @@
+/* Upload area drag-over state */
+.upload-area.drag-over {
+  border-color: #2563eb;
+  background-color: #eff6ff;
+}
+
+/* Smooth section transitions */
+.step-section {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Camera modal video — evita que o vídeo fique espelhado na câmera frontal */
+#camera-video.frontal {
+  transform: scaleX(-1);
+}
+
+/* Garante que o modal de câmera fique acima de tudo */
+#camera-modal {
+  z-index: 9999;
+}

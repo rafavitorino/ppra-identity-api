@@ -1,9 +1,5 @@
--- Atualiza o ENUM da coluna status da tb_verificacao para os valores corretos
+-- Converte a coluna status de ENUM para VARCHAR,
+-- eliminando conflitos de compatibilidade com MariaDB.
 ALTER TABLE tb_verificacao
-MODIFY COLUMN status ENUM(
-    'AGUARDANDO_RESPONSAVEL',
-    'AUTORIZADO_RESPONSAVEL',
-    'EM_ANALISE',
-    'APROVADO',
-    'REPROVADO'
-) NOT NULL DEFAULT 'AGUARDANDO_RESPONSAVEL';
+  DROP COLUMN status,
+  ADD COLUMN status VARCHAR(50) NOT NULL DEFAULT 'AGUARDANDO_RESPONSAVEL';

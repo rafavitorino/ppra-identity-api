@@ -10,10 +10,11 @@ CREATE TABLE IF NOT EXISTS processoverificacao (
     id               CHAR(36)      NOT NULL,
     status           ENUM(
                          'AGUARDANDO_RESPONSAVEL',
-                         'DOCUMENTOS_ENVIADOS',
-                         'AGUARDANDO_SELFIE',
+                         'RESPONSAVEL_ENVIADO',
+                         'MENOR_ENVIADO',
+                         'EM_ANALISE',
                          'APROVADO',
-                         'REJEITADO'
+                         'REPROVADO'
                      ) NOT NULL DEFAULT 'AGUARDANDO_RESPONSAVEL',
     emailResponsavel VARCHAR(255)  NOT NULL,
     metadadosCliente LONGTEXT,
@@ -27,13 +28,7 @@ CREATE TABLE IF NOT EXISTS processoverificacao (
 -- Tabela principal de verificações de identidade
 CREATE TABLE IF NOT EXISTS tb_verificacao (
     id                BINARY(16)   NOT NULL,
-    status            ENUM(
-                          'AGUARDANDO_RESPONSAVEL',
-                          'AUTORIZADO_RESPONSAVEL',
-                          'EM_ANALISE',
-                          'APROVADO',
-                          'REPROVADO'
-                      ) NOT NULL DEFAULT 'AGUARDANDO_RESPONSAVEL',
+    status            VARCHAR(50)  NOT NULL DEFAULT 'AGUARDANDO_RESPONSAVEL',
     email_responsavel VARCHAR(255) NOT NULL,
     id_usuario        VARCHAR(255) NOT NULL,
     cpf_responsavel   VARCHAR(14),
